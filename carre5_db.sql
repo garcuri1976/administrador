@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-09-2023 a las 23:45:29
+-- Tiempo de generación: 16-09-2023 a las 06:45:59
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -107,6 +107,16 @@ CREATE TABLE `usr_admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Volcado de datos para la tabla `usr_admin`
+--
+
+INSERT INTO `usr_admin` (`id_admin`, `nombre`, `apellido`, `correo`, `clave`) VALUES
+(1, 'Gustavo Ariel', 'Arcuri', 'garcuri76@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b'),
+(2, 'Sabrina', 'Gioffre', 'gsabrina@gmail.com', '10ed1697617fe7758b4236d5b791286c'),
+(3, 'Ariela Malvina', 'Arcuri', 'ariarcuri@gmail.com', '70873e8580c9900986939611618d7b1e'),
+(4, 'Maximo', 'Arcuri', 'max_arcuri@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -188,7 +198,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usr_admin`
 --
 ALTER TABLE `usr_admin`
-  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
