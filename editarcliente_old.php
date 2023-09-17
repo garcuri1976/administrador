@@ -9,13 +9,13 @@ if (isset($_REQUEST['guardar'])) {
     $apellido = mysqli_real_escape_string($con, $_REQUEST['apellido'] ?? '');
     $id = mysqli_real_escape_string($con, $_REQUEST['id'] ?? '');
 
-    $query = "UPDATE usr_admin SET
+    $query = "UPDATE usr_clientes SET
         correo='" . $email . "',clave='" . $pass . "',nombre='" . $nombre . "',apellido='" . $apellido . "'
-        where id_admin='".$id."';
+        where id_cliente='".$id."';
         ";
     $res = mysqli_query($con, $query);
     if ($res) {
-        echo '<meta http-equiv="refresh" content="0; url=panel.php?modulo=usuarios&mensaje=Usuario '.$nombre.' editado exitosamente" />  ';
+        echo '<meta http-equiv="refresh" content="0; url=panel.php?modulo=clientes&mensaje=Usuario '.$nombre.' editado exitosamente" />  ';
     } else {
 ?>
         <div class="alert alert-danger" role="alert">
@@ -25,7 +25,7 @@ if (isset($_REQUEST['guardar'])) {
     }
 }
 $id= mysqli_real_escape_string($con,$_REQUEST['id']??'');
-$query="SELECT id_admin,correo,nombre,apellido,clave from usr_admin where id_admin='".$id."'; ";
+$query="SELECT id_cliente, correo, nombre, apellido, clave from clientes where id_cliente='".$id."'; ";
 $res=mysqli_query($con,$query);
 $row=mysqli_fetch_assoc($res);
 ?>
@@ -36,7 +36,7 @@ $row=mysqli_fetch_assoc($res);
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Editar usuario</h1>
+                    <h1>Crear usuario</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -67,7 +67,7 @@ $row=mysqli_fetch_assoc($res);
                                 <input type="text" name="apellido" class="form-control" value="<?php echo $row['apellido'] ?>"  required="required" >
                             </div>
                             <div class="form-group">
-                                <input type="hidden" name="id" value="<?php echo $row['id_admin'] ?>" >
+                                <input type="hidden" name="id" value="<?php echo $row['id_cliente'] ?>" >
                                 <button type="submit" class="btn btn-primary" name="guardar">Guardar</button>
                             </div>
                         </form>

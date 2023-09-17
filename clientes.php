@@ -3,13 +3,14 @@ include_once "db.php";
 $con = mysqli_connect($host, $user, $pass, $db);
 if(isset($_REQUEST['idBorrar'])){
     $id= mysqli_real_escape_string($con,$_REQUEST['idBorrar']??'');
-    $query="DELETE from clientes  where user_id='".$id."';";
+    $query="DELETE from clientes  where id_cliente='".$id."';";
     $res=mysqli_query($con,$query);
     if($res){
         ?>
-        <div class="alert alert-warning float-right" role="alert">
-            Cliente borrado con exito (no tienes corazon)
-        </div>
+
+echo '<meta http-equiv="refresh" content="0; url=panel.php?modulo=clientes&mensaje=Cliente borrado exitosamente" />  ';
+
+     
         <?php
     }else{
         ?>
@@ -45,18 +46,16 @@ if(isset($_REQUEST['idBorrar'])){
                                   <tr>
                                       <th>Nombre</th>
                                       <th>Apellido</th>
-                                      <th>Localidad</th>
-                                      <th>Direccion</th>
                                       <th>Email</th>
-                                      <!--<th>Contrasena</th>-->
+                                      <th>Telefono</th>
                                       <th>Acciones
-                                          <a href="panel.php?modulo=crearcliente"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                          <a href="panel.php?modulo=crearliente"><i class="fa fa-plus" aria-hidden="true"></i></a>
                                       </th>
                                   </tr>
                               </thead>
                               <tbody>
                                   <?php
-                                    $query = "SELECT user_id,nombre,apellido,localidad,direccion,email,contrasena from clientes;   ";
+                                    $query = "SELECT id_cliente,nombre,apellido,correo,telefono from clientes;   ";
                                     $res = mysqli_query($con, $query);
 
                                     while ($row = mysqli_fetch_assoc($res)) {
@@ -64,17 +63,15 @@ if(isset($_REQUEST['idBorrar'])){
                                       <tr>
                                           <td><?php echo $row['nombre'] ?></td>
                                           <td><?php echo $row['apellido'] ?></td>
-                                          <td><?php echo $row['localidad'] ?></td>
-                                          <td><?php echo $row['direccion'] ?></td>
-                                          <td><?php echo $row['email'] ?></td>
-                                          <!--<td><?php echo $row['contrasena'] ?></td>-->
+                                          <td><?php echo $row['correo'] ?></td>
+                                          <td><?php echo $row['telefono'] ?></td>
                                           <td>
-                                              
+                                          
+                                          
+                                          <a href="panel.php?modulo=editarCliente&id=<?php echo $row['id_cliente'] ?>" style="margin-right: 5px;"> <i class="fas fa-edit"></i> </a>
+                                            <a href="panel.php?modulo=clientes&idBorrar=<?php echo $row['id_cliente'] ?>" class="text-danger borrar"> <i class="fas fa-trash"></i> </a>
                                                                                 
-                                           <a href="panel.php?modulo=editarcliente&id=<?php echo $row['user_id'] ?>" style="margin-right: 5px;"> 
-                                              <i class="fas fa-edit"></i> </a>
-                                            <a href="panel.php?modulo=Borrarcliente&idBorrar=<?php echo $row['user_id'] ?>" class="text-danger borrar"> 
-                                              <i class="fas fa-trash"></i> </a>
+                                         
                                           </td>
                                       </tr>
                                   <?php
