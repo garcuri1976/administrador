@@ -2,32 +2,35 @@
 include_once "db.php";
 $con = mysqli_connect($host, $user, $pass, $db);
 if (isset($_REQUEST['guardar'])) {
-   
+
     $nombre = mysqli_real_escape_string($con, $_REQUEST['nombre'] ?? '');
     $apellido = mysqli_real_escape_string($con, $_REQUEST['apellido'] ?? '');
     $localidad = mysqli_real_escape_string($con, $_REQUEST['localidad'] ?? '');
     $direccion = mysqli_real_escape_string($con, $_REQUEST['direccion'] ?? '');
     $email = mysqli_real_escape_string($con, $_REQUEST['correo'] ?? '');
     $pass = md5(mysqli_real_escape_string($con, $_REQUEST['clave'] ?? ''));
-    $id = mysqli_real_escape_string($con, $_REQUEST['user_id'] ?? '');
     $telefono = mysqli_real_escape_string($con, $_REQUEST['telefono'] ?? '');
+    $id = mysqli_real_escape_string($con, $_REQUEST['idcli'] ?? '');
 
-    $query = "INSERT INTO clientes 
-        (correo ,clave ,nombre ,apellido, localidad  ,direccion, telefono) VALUES
-        ('" . $email . "','" . $pass . "','" . $nombre . "','" . $apellido . "','" . $localidad . "','" . $direccion . "','" . $telefono . "');
+    $query = "UPDATE clientes SET
+        nombre='" . $nombre . "',apellido='" . $apellido . "',localidad='" . $localidad . "',direccion='" . $direccion . "',correo='" . $email . "',clave='" . $pass . "'
+        where id_cliente='". $id ."';
         ";
     $res = mysqli_query($con, $query);
     if ($res) {
-        echo '<meta http-equiv="refresh" content="0; url=panel.php?modulo=clientes&mensaje=clientes creado exitosamente" />  ';
+        echo '<meta http-equiv="refresh" content="0; url=panel.php?modulo=clientes&mensaje=Clientes '.$email.' editado exitosamente" />  ';
     } else {
 ?>
         <div class="alert alert-danger" role="alert">
-            Error al crear usuario <?php echo mysqli_error($con); ?>
+            Error al crear cliente <?php echo mysqli_error($con); ?>
         </div>
 <?php
     }
 }
-
+$id= mysqli_real_escape_string($con,$_REQUEST['idcli']??'');
+$query= "SELECT id_cliente, nombre, apellido, localidad, direccion, correo, clave from clientes where id_cliente='".$id."'; ";
+$res=mysqli_query($con,$query);
+$row=mysqli_fetch_assoc($res);
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -36,7 +39,7 @@ if (isset($_REQUEST['guardar'])) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Crear Cliente</h1>
+                    <h1>Editar Cliente</h1>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -49,7 +52,15 @@ if (isset($_REQUEST['guardar'])) {
                 <div class="card">
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form action="panel.php?modulo=crearcliente" method="post">
+                        <form action="panel.php?modulo=editarcliente" method="post">
+                        <div class="form-group">
+                                <label>Email</label>
+                                <input type="mail" name="correo" class="form-control"  required="required" >
+                            </div>
+                            <div class="form-group">
+                                <label>Pass</label>
+                                <input type="password" name="clave" class="form-control"  required="required" >
+                            </div>
                             <div class="form-group">
                                 <label>Nombre</label>
                                 <input type="text" name="nombre" class="form-control"  required="required" >
@@ -57,29 +68,17 @@ if (isset($_REQUEST['guardar'])) {
                             <div class="form-group">
                                 <label>Apellido</label>
                                 <input type="text" name="apellido" class="form-control"  required="required" >
-                            </div>    
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" name="correo" class="form-control"  required="required" >
-                            </div>
-                            <div class="form-group">
-                                <label>Telefono</label>
-                                <input type="text" name="telefono" class="form-control"  required="required" >
-                            </div>
-                            <div class="form-group">
-                                <label>Direccion</label>
-                                <input type="text" name="direccion" class="form-control"  required="required" >
                             </div>
                             <div class="form-group">
                                 <label>Localidad</label>
                                 <input type="text" name="localidad" class="form-control"  required="required" >
                             </div>
                             <div class="form-group">
-                                <label>Pass</label>
-                                <input type="password" name="clave" class="form-control"  required="required" >
+                                <label>Direccion</label>
+                                <input type="text" name="direccion" class="form-control"  required="required" >
                             </div>
-                                                  
                             <div class="form-group">
+                            <input type="hidden" name="idcli" value="<?php echo $row['id_cliente'] ?>" >
                                 <button type="submit" class="btn btn-primary" name="guardar">Guardar</button>
                             </div>
                         </form>

@@ -122,7 +122,7 @@ $modulo=$_REQUEST['modulo']??'';
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="panel.php?modulo=clientes" class="nav-link <?php echo ($modulo=="clientes" || $modulo=="crearUsuario" || $modulo=="editarUsuario" )?" active ":" "; ?>">
+                  <a href="panel.php?modulo=clientes" class="nav-link <?php echo ($modulo=="clientes" || $modulo=="crearcliente" || $modulo=="editarCliente" )?" active ":" "; ?>">
                     <i class="far fa-user nav-icon"></i>
                     <p>Clientes</p>
                   </a>
@@ -178,12 +178,11 @@ $modulo=$_REQUEST['modulo']??'';
       if($modulo=="editarUsuario"){
         include_once "editarUsuario.php";
       }
-
       if($modulo=="crearcliente"){
         include_once "crearcliente.php";
       }
-      if($modulo=="editarcliente"){
-        include_once "editarcliente.php";
+      if($modulo=="editarCliente"){
+        include_once "editarCliente.php";
       }
       if($modulo=="productos"){
         include_once "productos.php";
@@ -299,7 +298,7 @@ $modulo=$_REQUEST['modulo']??'';
   $(document).ready(function () {
     $(".borrar").click(function (e) { 
       e.preventDefault();
-      var res=confirm("Realmente te quieres cargar (borrar) ese usuario?");
+      var res=confirm("Realmente  quieres eliminar ese usuario?");
       if(res==true){
         var link=$(this).attr("href");
         window.location=link;

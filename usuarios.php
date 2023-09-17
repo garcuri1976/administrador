@@ -7,9 +7,10 @@ if(isset($_REQUEST['idBorrar'])){
     $res=mysqli_query($con,$query);
     if($res){
         ?>
-        <div class="alert alert-warning float-right" role="alert">
-            Usuario borrado con exito (no tienes corazon)
-        </div>
+
+echo '<meta http-equiv="refresh" content="0; url=panel.php?modulo=usuarios&mensaje=Usuario borrado exitosamente" />  ';
+
+       
         <?php
     }else{
         ?>
