@@ -49,7 +49,7 @@ echo '<meta http-equiv="refresh" content="0; url=panel.php?modulo=clientes&mensa
                                       <th>Email</th>
                                       <th>Telefono</th>
                                       <th>Acciones
-                                          <a href="panel.php?modulo=crearliente"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                          <a href="panel.php?modulo=crearcliente"><i class="fa fa-plus" aria-hidden="true"></i></a>
                                       </th>
                                   </tr>
                               </thead>
